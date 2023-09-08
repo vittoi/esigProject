@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>Exibição de Salários</title>
+</h:head>
+<h:body>
+
+    <h:form>
+        <div>
+            <h:commandLink action="#{pessoa_SalarioBean.calculaSalarios()}" value="Recalcular Salários"/>
+        </div>
+        <div style="display: flex; justify-content: center">
+            <h:dataTable value="#{pessoa_SalarioBean.listarPessoas()}" var="pessoa" border="1" rows="100">
+                <h:column>
+                    <f:facet name="header">Nome</f:facet>
+                    #{pessoa.nome}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Cidade</f:facet>
+                    #{pessoa.cidade}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">País</f:facet>
+                    #{pessoa.pais}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Email</f:facet>
+                    #{pessoa.email}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Endereço</f:facet>
+                    #{pessoa.endereco}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Usuário</f:facet>
+                    #{pessoa.usuario}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">CEP</f:facet>
+                    #{pessoa.cep}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Telefone</f:facet>
+                    #{pessoa.telefone}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Data Nascimento</f:facet>
+                    #{pessoa.data_nascimento}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Cargo</f:facet>
+                    #{pessoa.cargo.nome}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Salário</f:facet>
+                    #{pessoa_SalarioBean.mapCargoSalario.get(pessoa.cargo.id)}
+                </h:column>
+            </h:dataTable>
+        </div>
+        <div style="display: flex; justify-content: space-around">
+            <!-- Controles de páginação -->
+            <h:commandLink action="#{pessoa_SalarioBean.paginaAnterior()}" value="Anterior"/>
+            <h:outputText value="#{pessoa_SalarioBean.paginaAtual}"/>
+            <h:commandLink action="#{pessoa_SalarioBean.proximaPagina()}" value="Próxima"/>
+        </div>
+    </h:form>
+</h:body>
+</html>

@@ -1,0 +1,61 @@
+-- Database: esigProject
+
+-- DROP DATABASE IF EXISTS "esigProject";
+
+CREATE DATABASE "esigProject"
+    WITH
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'Portuguese_Brazil.1252'
+    LC_CTYPE = 'Portuguese_Brazil.1252'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1
+    IS_TEMPLATE = False;
+	
+
+-- Criação da tabela Cargo
+CREATE TABLE Cargo (
+    ID serial PRIMARY KEY,
+    Nome VARCHAR(255) NOT NULL
+);
+
+-- Criação da tabela Vencimentos
+CREATE TABLE Vencimentos (
+    ID serial PRIMARY KEY,
+    Descricao VARCHAR(255) NOT NULL,
+    Valor NUMERIC(10, 2),
+    Tipo VARCHAR(50)
+);
+
+-- Criação da tabela Cargo_Vencimentos
+CREATE TABLE Cargo_Vencimentos (
+	ID serial PRIMARY KEY,
+    Cargo_ID INT,
+    Vencimento_ID INT,
+    FOREIGN KEY (Cargo_ID) REFERENCES Cargo(ID),
+    FOREIGN KEY (Vencimento_ID) REFERENCES Vencimentos(ID)
+);
+
+	-- Criação da tabela Pessoa
+CREATE TABLE Pessoa (
+    ID serial PRIMARY KEY,
+    Nome VARCHAR(255) NOT NULL,
+    Cidade VARCHAR(255),
+    Email VARCHAR(255),
+    CEP VARCHAR(10),
+    Endereco VARCHAR(255),
+    Pais VARCHAR(255),
+    Usuario VARCHAR(50),
+    Telefone VARCHAR(20),
+    Data_Nascimento DATE,
+    Cargo_ID INT,
+	FOREIGN KEY (Cargo_ID) REFERENCES Cargo(ID)
+);
+
+CREATE TABLE pessoa_salario (
+    pessoa_id BIGINT NOT NULL,
+    nome VARCHAR(255) NOT NULL,
+    salario NUMERIC(10, 2) NOT NULL,
+    PRIMARY KEY (pessoa_id, nome),
+    FOREIGN KEY (pessoa_id) REFERENCES pessoa(id)
+);
